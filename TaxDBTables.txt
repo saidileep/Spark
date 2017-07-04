@@ -13,7 +13,7 @@ CONSTRAINT PK_Individuals_IndividualDocumentNumber PRIMARY KEY(IndividualDocumen
 
 CREATE TABLE Companies
 (
-  SID identity(1,1),
+  SID int identity(1,1),
   ComapanyCUITNumber varchar(255),
   OwnerDocNo varchar(255),
   OwnerType varchar(1),
@@ -58,7 +58,7 @@ CREATE TABLE TaxPayments
   TaxTypeID int,  
   Record_Created_Date date
   CONSTRAINT PK_TaxPayments_SID PRIMARY KEY(SID),											
-  CONSTRAINT UK_TaxPayments (CollectionAgencyID, TaxPayerID, PaymentDate, TaxTypeID),
+  CONSTRAINT UK_TaxPayments UNIQUE(CollectionAgencyID, TaxPayerID, PaymentDate, TaxTypeID),
   CONSTRAINT FK_TaxPayments_CollectionAgencyID FOREIGN KEY(CollectionAgencyID) REFERENCES Agencies(AgencyNumber),
   CONSTRAINT FK_TaxPayments_TaxPayerID FOREIGN KEY(TaxPayerID) REFERENCES Companies(SID),
   CONSTRAINT FK_TaxPayments_TaxTypeID FOREIGN KEY(TaxTypeID) REFERENCES TaxCategories(SID)
