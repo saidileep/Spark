@@ -6,8 +6,12 @@ CREATE TABLE Individuals
   HomeAddress varchar(max),
   Email varchar(255),
   MobileNo varchar(255),
-  LanlineNo varchar(255),Fax varchar(255),
-  Record_Created_Date date,
+  LandlineNo varchar(255),
+  Fax varchar(255),
+  Created_Date datetime not null default (getdate()),
+  Created_By varchar(255) not null default (system_user),
+  Updated_Date datetime,
+  Updated_By varchar(255)
 CONSTRAINT PK_Individuals_IndividualDocumentNumber PRIMARY KEY(IndividualDocumentNumber)
 );
 
@@ -23,7 +27,10 @@ CREATE TABLE Companies
   MobileNo varchar(255),
   LanlineNo varchar(255),
   Fax varchar(255),
-  Record_Created_Date date,
+  Created_Date datetime not null default (getdate()),
+  Created_By varchar(255) not null default (system_user),
+  Updated_Date datetime,
+  Updated_By varchar(255)
 CONSTRAINT PK_Companies_SID PRIMARY KEY(SID),
 CONSTRAINT FK_Companies_OwnerDocNo FOREIGN KEY(OwnerDocNo) REFERENCES Individuals(IndividualDocumentNumber),
 CONSTRAINT UK_Companies_CompanyCUITNumber_OwnerDocNo UNIQUE (ComapanyCUITNumber, OwnerDocNo)
@@ -36,7 +43,10 @@ CREATE TABLE Agencies
   TelNo varchar(255),
   InchargePerson varchar(255),
   NoOfEmployees int,
-  Record_Created_Date date
+  Created_Date datetime not null default (getdate()),
+  Created_By varchar(255) not null default (system_user),
+  Updated_Date datetime,
+  Updated_By varchar(255)
   CONSTRAINT PK_Agencies_AgencyNumber PRIMARY KEY(AgencyNumber)
 );
 
@@ -44,7 +54,10 @@ CREATE TABLE TaxCategories
 (
   SID int identity(1,1),
   TaxType varchar(255),
-  Record_Created_Date date
+  Created_Date datetime not null default (getdate()),
+  Created_By varchar(255) not null default (system_user),
+  Updated_Date datetime,
+  Updated_By varchar(255)
   CONSTRAINT PK_TaxCategories_SID PRIMARY KEY(SID)
 );
 
@@ -56,7 +69,10 @@ CREATE TABLE TaxPayments
   TaxAmount decimal,
   PaymentDate date,
   TaxTypeID int,  
-  Record_Created_Date date
+  Created_Date datetime not null default (getdate()),
+  Created_By varchar(255) not null default (system_user),
+  Updated_Date datetime,
+  Updated_By varchar(255)
   CONSTRAINT PK_TaxPayments_SID PRIMARY KEY(SID),											
   CONSTRAINT UK_TaxPayments UNIQUE(CollectionAgencyID, TaxPayerID, PaymentDate, TaxTypeID),
   CONSTRAINT FK_TaxPayments_CollectionAgencyID FOREIGN KEY(CollectionAgencyID) REFERENCES Agencies(AgencyNumber),
